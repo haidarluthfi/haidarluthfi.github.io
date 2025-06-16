@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SEBLAK BAROKAH - Menu Seblak</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f85757 0%, #ffb199 100%);
+      color: #3e1f0d;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff3e0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 8px;
+      user-select: none;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ffe6c2;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 720px;
+      height: 240px;
+      margin: 24px auto 48px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      position: relative;
+      background: linear-gradient(135deg, #f85b36 0%, #ffd6a0 100%);
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+    }
+
+    main {
+      background: rgba(255, 255, 255, 0.85);
+      max-width: 720px;
+      width: 100%;
+      border-radius: 24px;
+      padding: 32px 40px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      user-select: text;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #bf360c;
+      border-bottom: 3px solid #ff7043;
+      padding-bottom: 8px;
+    }
+
+    ul.menu-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 32px;
+    }
+
+    ul.menu-list li {
+      background: #fff3e0;
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 0 4px 12px rgba(255, 112, 67, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    ul.menu-list li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(255, 112, 67, 0.5);
+      background: #ffe0b2;
+    }
+
+    .menu-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #bf360c;
+      margin-bottom: 8px;
+    }
+
+    .menu-desc {
+      flex-grow: 1;
+      font-size: 0.95rem;
+      color: #6d4c41;
+      margin-bottom: 12px;
+      min-height: 54px;
+    }
+
+    .menu-price {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #d84315;
+      align-self: flex-end;
+    }
+
+    .marquee-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      padding: 10px 0;
+      margin: 20px 0;
+    }
+
+    .marquee {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      animation: marqueeAnim 20s linear infinite;
+      font-size: 1.5rem;
+      color: #bf360c;
+    }
+
+    @keyframes marqueeAnim {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 9999;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background: #fff3e0;
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 12px 40px rgba(255, 112, 67, 0.4);
+      max-width: 320px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      color: #bf360c;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+    .modal-content h3 {
+      margin-bottom: 12px;
+      font-size: 1.5rem;
+    }
+    .modal-content a {
+      color: #d84315;
+      text-decoration: none;
+      font-size: 1.1rem;
+      word-break: break-word;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #b33a0f;
+      cursor: pointer;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .modal-close:focus {
+      outline: 2px solid #d84315;
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 640px) {
+      ul.menu-list {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      .hero-image {
+        height: 180px;
+      }
+
+      main {
+        padding: 24px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SEBLAK BAROKAH</h1>
+    <p>Menu Seblak Lezat & Nikmat untuk Anda</p>
+  </header>
+
+  <div class="hero-image" aria-label="Background gambar mangkuk seblak penuh topping berwarna cerah">
+    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c5df246e-b64d-4e20-9ab2-9fa8d72d1a55.png" alt="Gambar mangkuk seblak merah pedas dengan kerupuk, telur, dan sayuran segar yang penuh warna dan menggugah selera" />
+  </div>
+
+  <div class="marquee-container" role="region" aria-label="Lagu Mangu running text lyrics">
+    <span class="marquee" aria-live="off">
+      Jangan salahkan pahamku kini — Ku coba bertahan walau sendiri — Ingat aku masih mencintai — Mangu, mangu, terus berlari...
+    </span>
+  </div>
+
+  <main>
+    <h2>Daftar Menu Seblak</h2>
+    <ul class="menu-list" role="list">
+      <li tabindex="0" aria-label="Seblak Original. Seblak pedas dengan kerupuk, telur, dan sayuran. Harga 15 ribu rupiah" id="seblak-original">
+        <div class="menu-name">Seblak Original</div>
+        <div class="menu-desc">Seblak pedas dengan kerupuk, telur, dan sayuran segar.</div>
+        <div class="menu-price">Rp 15.000</div>
+      </li>
+      <li tabindex="0" aria-label="Seblak Bakso. Seblak dengan bakso sapi, kerupuk, dan kuah pedas nikmat. Harga 18 ribu rupiah">
+        <div class="menu-name">Seblak Bakso</div>
+        <div class="menu-desc">Seblak dengan bakso sapi, kerupuk, dan kuah pedas nikmat.</div>
+        <div class="menu-price">Rp 18.000</div>
+      </li>
+      <li tabindex="0" aria-label="Seblak Sosis. Seblak pedas lengkap dengan sosis lezat dan telur. Harga 17 ribu rupiah">
+        <div class="menu-name">Seblak Sosis</div>
+        <div class="menu-desc">Seblak pedas lengkap dengan sosis lezat dan telur.</div>
+        <div class="menu-price">Rp 17.000</div>
+      </li>
+      <li tabindex="0" aria-label="Seblak Ceker. Seblak kenyal dengan ceker ayam dan bumbu pedas. Harga 20 ribu rupiah">
+        <div class="menu-name">Seblak Ceker</div>
+        <div class="menu-desc">Seblak kenyal dengan ceker ayam dan bumbu pedas khas.</div>
+        <div class="menu-price">Rp 20.000</div>
+      </li>
+      <li tabindex="0" aria-label="Seblak Seafood. Seblak dengan udang, kerang, dan seafood segar. Harga 22 ribu rupiah">
+        <div class="menu-name">Seblak Seafood</div>
+        <div class="menu-desc">Seblak dengan udang, kerang, dan seafood segar.</div>
+        <div class="menu-price">Rp 22.000</div>
+      </li>
+      <li tabindex="0" aria-label="Seblak Vegetarian. Seblak sehat tanpa daging, banyak sayuran dan bumbu lezat. Harga 16 ribu rupiah">
+        <div class="menu-name">Seblak Vegetarian</div>
+        <div class="menu-desc">Seblak sehat tanpa daging, banyak sayuran dan bumbu lezat.</div>
+        <div class="menu-price">Rp 16.000</div>
+      </li>
+    </ul>
+  </main>
+
+  <!-- Modal Structure -->
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Tutup modal" id="modal-close">&times;</button>
+      <h3 id="modal-title">Instagram Akun Seblak Original</h3>
+      <p id="modal-desc">
+        Ikuti kami di Instagram:<br />
+        <a href="https://instagram.com/seblakbarokah" target="_blank" rel="noopener noreferrer">@seblakbarokah</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const seblakOriginal = document.getElementById('seblak-original');
+      const modal = document.getElementById('modal');
+      const modalClose = document.getElementById('modal-close');
+
+      seblakOriginal.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalClose.focus();
+      });
+
+      modalClose.addEventListener('click', () => {
+        modal.classList.remove('active');
+        seblakOriginal.focus();
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+          seblakOriginal.focus();
+        }
+      });
+
+      // Trap focus inside modal when open for accessibility
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+
+        const focusableElements = modal.querySelectorAll('a, button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
+        const firstEl = focusableElements[0];
+        const lastEl = focusableElements[focusableElements.length - 1];
+
+        if (e.key === 'Tab') {
+          if (e.shiftKey) {
+            if (document.activeElement === firstEl) {
+              e.preventDefault();
+              lastEl.focus();
+            }
+          } else {
+            if (document.activeElement === lastEl) {
+              e.preventDefault();
+              firstEl.focus();
+            }
+          }
+        } else if (e.key === 'Escape') {
+          modal.classList.remove('active');
+          seblakOriginal.focus();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
